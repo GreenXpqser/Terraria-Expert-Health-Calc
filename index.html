@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Terraria Expert Mode Boss Health Scaling Calculator</title>
+</head>
+<body>
+  
+<input type="number" value=1 min="1" max="999999" step="1" onchange="writeValue(this.value)">
+  
+<select id="bossSelect"></select>
+  
+<div id="Players">
+  <h1>Players: <div id="playerNum">1</div></h1>
+</div>
+  
+<div id="health">
+  <h1>Health: <div id="outHealth">3640</div></h1>
+</div>
+  
+<script id="jsbin-javascript">
+var outHealth = document.getElementById('outHealth');
+var bossSelect = document.getElementById('bossSelect');
+
+var Bosses = [
+	'Eye of Cthulhu',
+	'Eater of Worlds',
+	'King Slime',
+	'Brain of Cthulhu',
+	'Queen Bee',
+	'Skeletron',
+	'Wall of Flesh',
+	'The Twins',
+	'The Destroyer',
+	'Skeletron Prime',
+	'Plantera',
+	'Golem',
+	'Duke Fishron',
+    'Betsy',
+	'Lunatic Cultist',
+	'Moon Lord'
+]
+
+for(var i = 0; i < Bosses.length; i++){
+	var opt = document.createElement("option");
+	opt.value = Bosses[i];
+	opt.text = Bosses[i];
+	bossSelect.add(opt);
+}
+
+function writeValue(val){
+  document.getElementById('playerNum').innerHTML = val;
+  calculateHealth(val, bossSelect.value);
+}
+
+function calculateHealth(players, boss){
+	var boss = boss;
+	var players = players;
+	var mutator0 = 1;
+	var mutator1 = 0.35;
+	for(var i = 1; i < players; i++){
+		mutator0 += mutator1;
+		mutator1 += (1 - mutator1)/3;
+	}
+	  
+	if(mutator0 > 8){
+		mutator0 = (mutator0 * 2 + 8)/3;
+	}
+	if(mutator0 > 1000){
+			mutator0 = 1000.0000000;
+	}
+  
+	if(boss == 'Eye of Cthulhu'){
+		var health = 2800 * 2;
+		health = Math.round(health * 0.65 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Eater of Worlds'){
+		var healthHead = 65 * 2;
+		var healthBody = 150 * 2;
+		var healthTail = 220 * 2;
+		healthHead = Math.round(healthHead * 0.7 * mutator0);
+		healthBody = Math.round(healthBody * 0.7 * mutator0);
+		healthTail = Math.round(healthTail * 0.7 * mutator0);
+		var totHealth = healthHead + healthTail + (48 * healthBody);
+		outHealth.innerHTML = 'Total Hp: '+totHealth+', head: '+healthHead+', body: '+healthBody+', tail: '+healthTail;
+	}else if(boss == 'Brain of Cthulhu'){
+		var health = 1000 * 2;
+		health = Math.round(health * 0.85 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'King Slime'){
+		var health = 2000 * 2;
+		health = Math.round(health * 0.7 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Queen Bee'){
+		var health = 3400 * 2;
+		health = Math.round(health * 0.7 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Skeletron'){
+		var headHealth = 4400 * 2;
+		var handHealth = 600 * 2;
+		headHealth = Math.round(headHealth * mutator0);
+		handHealth = Math.round(handHealth * 1.3 * mutator0);
+		var totHealth = Math.round(handHealth*2 + headHealth);
+		outHealth.innerHTML = 'Head Hp: '+headHealth+', Hand Hp: '+handHealth+' Total: '+totHealth;
+	}else if(boss == 'Wall of Flesh'){
+		var health = 8000 * 2;
+		health = Math.round(health * 0.7 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'The Destroyer'){
+		var health = 80000 * 2;
+		health = Math.round(health * 0.75 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Skeletron Prime'){
+		var primeHealth = 28000 * 2;
+		var cannonHealth = 7000 * 2;
+		var laserHealth = 6000 * 2;
+		var viceHealth = 9000 * 2;
+		var sawHealth = 9000 * 2;
+		primeHealth = Math.round(primeHealth * 0.75 * mutator0);
+		cannonHealth = Math.round(cannonHealth * 0.75 * mutator0);
+		laserHealth = Math.round(laserHealth * 0.75 * mutator0);
+		viceHealth = Math.round(viceHealth * 0.75 * mutator0);
+		sawHealth = Math.round(sawHealth * 0.75 * mutator0);
+		var totHealth = primeHealth + cannonHealth + laserHealth + viceHealth + sawHealth;
+		outHealth.innerHTML = 'Total Hp: '+totHealth+', Prime Hp: '+primeHealth+', Saw Hp: '+sawHealth+', Vice Hp: '+viceHealth+', Laser Hp: '+laserHealth+', Cannon Hp: '+cannonHealth;
+	}else if(boss == 'The Twins'){
+		var spazHealth = 23000 * 2;
+		var retHeatlh = 20000 * 2;
+		spazHealth = Math.round(spazHealth * 0.75 * mutator0);
+		retHeatlh = Math.round(retHeatlh * 0.75 * mutator0);
+		var totHealth = spazHealth + retHeatlh;
+		outHealth.innerHTML = 'Total Hp: '+totHealth+', Retinazer Hp: '+retHeatlh+', Spazmatism Hp: '+spazHealth;
+	}else if(boss == 'Plantera'){
+		var health = 30000 * 2;
+		health = Math.round(health * 0.7 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Golem'){
+		var headHp = 16000 * 2;
+		var coreHp = 9000 * 2;
+		var fistHp = 7000 * 2;
+		headHp = Math.round(headHp * 0.75 * mutator0);
+		coreHp = Math.round(coreHp * 0.75 * mutator0);
+		fistHp = Math.round(fistHp * 0.75 * mutator0);
+		var totHealth = fistHp*2 + headHp + coreHp;
+		outHealth.innerHTML = 'Total Hp: '+totHealth+', head Hp: '+headHp+', core Hp: '+coreHp+', fist Hp: '+fistHp;
+	}else if(boss == 'Duke Fishron'){
+		var health = 50000 * 2;
+		health = Math.round(health * 0.6 * mutator0);
+		outHealth.innerHTML = health;
+    }else if(boss == 'Betsy'){
+		var health = 50000 * 2;
+		health = Math.round(health * 0.75 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Lunatic Cultist'){
+		var health = 32000 * 2;
+		health = Math.round(health * 0.625 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Moon Lord'){
+		var headHp = 45000 * 2;
+		var handHp = 25000 * 2;
+		var coreHp = 50000 * 2;
+		headHp = Math.round(headHp * 0.75 * mutator0);
+		handHp = Math.round(handHp * 0.75 * mutator0);
+		coreHp = Math.round(coreHp * 0.75 * mutator0);
+		var totHealth = headHp + (handHp * 2) + coreHp;
+		outHealth.innerHTML = 'Total Hp: '+totHealth+', Core Hp: '+coreHp+', Head Hp: '+headHp+', hand Hp: '+handHp;
+	}
+    
+}
+</script>
+
+
+
+<script id="jsbin-source-javascript" type="text/javascript">var outHealth = document.getElementById('outHealth');
+var bossSelect = document.getElementById('bossSelect');
+
+var Bosses = [
+	'Eye of Cthulhu',
+	'Eater of Worlds',
+	'King Slime',
+	'Brain of Cthulhu',
+	'Queen Bee',
+	'Skeletron',
+	'Wall of Flesh',
+	'The Twins',
+	'The Destroyer',
+	'Skeletron Prime',
+	'Plantera',
+	'Golem',
+	'Duke Fishron',
+    'Betsy',
+	'Lunatic Cultist',
+	'Moon Lord'
+]
+
+for(var i = 0; i < Bosses.length; i++){
+	var opt = document.createElement("option");
+	opt.value = Bosses[i];
+	opt.text = Bosses[i];
+	bossSelect.add(opt);
+}
+
+function writeValue(val){
+  document.getElementById('playerNum').innerHTML = val;
+  calculateHealth(val, bossSelect.value);
+}
+
+function calculateHealth(players, boss){
+	var boss = boss;
+	var players = players;
+	var mutator0 = 1;
+	var mutator1 = 0.35;
+	for(var i = 1; i < players; i++){
+		mutator0 += mutator1;
+		mutator1 += (1 - mutator1)/3;
+	}
+	  
+	if(mutator0 > 8){
+		mutator0 = (mutator0 * 2 + 8)/3;
+	}
+	if(mutator0 > 1000){
+			mutator0 = 1000.0000000;
+	}
+  
+	if(boss == 'Eye of Cthulhu'){
+		var health = 2800 * 2;
+		health = Math.round(health * 0.65 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Eater of Worlds'){
+		var healthHead = 65 * 2;
+		var healthBody = 150 * 2;
+		var healthTail = 220 * 2;
+		healthHead = Math.round(healthHead * 0.7 * mutator0);
+		healthBody = Math.round(healthBody * 0.7 * mutator0);
+		healthTail = Math.round(healthTail * 0.7 * mutator0);
+		var totHealth = healthHead + healthTail + (48 * healthBody);
+		outHealth.innerHTML = 'Total Hp: '+totHealth+', head: '+healthHead+', body: '+healthBody+', tail: '+healthTail;
+	}else if(boss == 'Brain of Cthulhu'){
+		var health = 1000 * 2;
+		health = Math.round(health * 0.85 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'King Slime'){
+		var health = 2000 * 2;
+		health = Math.round(health * 0.7 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Queen Bee'){
+		var health = 3400 * 2;
+		health = Math.round(health * 0.7 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Skeletron'){
+		var headHealth = 4400 * 2;
+		var handHealth = 600 * 2;
+		headHealth = Math.round(headHealth * mutator0);
+		handHealth = Math.round(handHealth * 1.3 * mutator0);
+		var totHealth = Math.round(handHealth*2 + headHealth);
+		outHealth.innerHTML = 'Head Hp: '+headHealth+', Hand Hp: '+handHealth+' Total: '+totHealth;
+	}else if(boss == 'Wall of Flesh'){
+		var health = 8000 * 2;
+		health = Math.round(health * 0.7 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'The Destroyer'){
+		var health = 80000 * 2;
+		health = Math.round(health * 0.75 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Skeletron Prime'){
+		var primeHealth = 28000 * 2;
+		var cannonHealth = 7000 * 2;
+		var laserHealth = 6000 * 2;
+		var viceHealth = 9000 * 2;
+		var sawHealth = 9000 * 2;
+		primeHealth = Math.round(primeHealth * 0.75 * mutator0);
+		cannonHealth = Math.round(cannonHealth * 0.75 * mutator0);
+		laserHealth = Math.round(laserHealth * 0.75 * mutator0);
+		viceHealth = Math.round(viceHealth * 0.75 * mutator0);
+		sawHealth = Math.round(sawHealth * 0.75 * mutator0);
+		var totHealth = primeHealth + cannonHealth + laserHealth + viceHealth + sawHealth;
+		outHealth.innerHTML = 'Total Hp: '+totHealth+', Prime Hp: '+primeHealth+', Saw Hp: '+sawHealth+', Vice Hp: '+viceHealth+', Laser Hp: '+laserHealth+', Cannon Hp: '+cannonHealth;
+	}else if(boss == 'The Twins'){
+		var spazHealth = 23000 * 2;
+		var retHeatlh = 20000 * 2;
+		spazHealth = Math.round(spazHealth * 0.75 * mutator0);
+		retHeatlh = Math.round(retHeatlh * 0.75 * mutator0);
+		var totHealth = spazHealth + retHeatlh;
+		outHealth.innerHTML = 'Total Hp: '+totHealth+', Retinazer Hp: '+retHeatlh+', Spazmatism Hp: '+spazHealth;
+	}else if(boss == 'Plantera'){
+		var health = 30000 * 2;
+		health = Math.round(health * 0.7 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Golem'){
+		var headHp = 16000 * 2;
+		var coreHp = 9000 * 2;
+		var fistHp = 7000 * 2;
+		headHp = Math.round(headHp * 0.75 * mutator0);
+		coreHp = Math.round(coreHp * 0.75 * mutator0);
+		fistHp = Math.round(fistHp * 0.75 * mutator0);
+		var totHealth = fistHp*2 + headHp + coreHp;
+		outHealth.innerHTML = 'Total Hp: '+totHealth+', head Hp: '+headHp+', core Hp: '+coreHp+', fist Hp: '+fistHp;
+	}else if(boss == 'Duke Fishron'){
+		var health = 50000 * 2;
+		health = Math.round(health * 0.6 * mutator0);
+		outHealth.innerHTML = health;
+    }else if(boss == 'Betsy'){
+		var health = 50000 * 2;
+		health = Math.round(health * 0.75 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Lunatic Cultist'){
+		var health = 32000 * 2;
+		health = Math.round(health * 0.625 * mutator0);
+		outHealth.innerHTML = health;
+	}else if(boss == 'Moon Lord'){
+		var headHp = 45000 * 2;
+		var handHp = 25000 * 2;
+		var coreHp = 50000 * 2;
+		headHp = Math.round(headHp * 0.75 * mutator0);
+		handHp = Math.round(handHp * 0.75 * mutator0);
+		coreHp = Math.round(coreHp * 0.75 * mutator0);
+		var totHealth = headHp + (handHp * 2) + coreHp;
+		outHealth.innerHTML = 'Total Hp: '+totHealth+', Core Hp: '+coreHp+', Head Hp: '+headHp+', hand Hp: '+handHp;
+	}
+    
+}</script></body>
+</html>
